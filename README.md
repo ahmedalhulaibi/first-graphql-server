@@ -1,0 +1,1 @@
+This code was generated using [graphqlator](https://github.com/ahmedalhulaibi/graphqlator)
