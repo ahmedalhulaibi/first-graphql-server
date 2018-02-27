@@ -7,6 +7,6 @@
         "AntiOrders",
         "Orders"
     ],
-    "git_repo": "",
+    "git_repo": "github.com:ahmedalhulaibi/first-graphql-server.git",
     "gen_mode": "graphql-go"
 }
