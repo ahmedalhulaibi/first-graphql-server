@@ -5,68 +5,83 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func CreatePerson(db *gorm.DB, newPerson Person) {
-	db.Create(&newPerson)
+func CreateAntiOrder(db *gorm.DB, newAntiOrder AntiOrder) []error {
+	return db.Create(&newAntiOrder).GetErrors()
 }
 
-func GetPerson(db *gorm.DB, queryPerson Person, resultPerson *Person) {
-	db.Where(&queryPerson).First(resultPerson)
+func GetAntiOrder(db *gorm.DB, queryAntiOrder AntiOrder, resultAntiOrder *AntiOrder) []error {
+	return db.Where(&queryAntiOrder).First(resultAntiOrder).GetErrors()
 }
 
-func UpdatePerson(db *gorm.DB, oldPerson Person, newPerson Person, resultPerson *Person) {
-	var oldResultPerson Person
-	db.Where(&oldPerson).First(&oldResultPerson)
-	if oldResultPerson.ID == newPerson.ID {
-		oldResultPerson = newPerson
-		db.Save(oldResultPerson)
-	}
-	GetPerson(db, newPerson, resultPerson)
+func GetAllAntiOrder(db *gorm.DB, queryAntiOrder AntiOrder, resultAntiOrder []AntiOrder) []error {
+	return db.Where(&queryAntiOrder).Find(resultAntiOrder).GetErrors()
 }
 
-func DeletePerson(db *gorm.DB, oldPerson Person) {
-	db.Delete(&oldPerson)
-}
-
-func CreateAntiOrder(db *gorm.DB, newAntiOrder AntiOrder) {
-	db.Create(&newAntiOrder)
-}
-
-func GetAntiOrder(db *gorm.DB, queryAntiOrder AntiOrder, resultAntiOrder *AntiOrder) {
-	db.Where(&queryAntiOrder).First(resultAntiOrder)
-}
-
-func UpdateAntiOrder(db *gorm.DB, oldAntiOrder AntiOrder, newAntiOrder AntiOrder, resultAntiOrder *AntiOrder) {
+func UpdateAntiOrder(db *gorm.DB, oldAntiOrder AntiOrder, newAntiOrder AntiOrder, resultAntiOrder *AntiOrder) []error {
 	var oldResultAntiOrder AntiOrder
-	db.Where(&oldAntiOrder).First(&oldResultAntiOrder)
+	err := db.Where(&oldAntiOrder).First(&oldResultAntiOrder).GetErrors()
 	if oldResultAntiOrder.AntiOrderID == newAntiOrder.AntiOrderID {
 		oldResultAntiOrder = newAntiOrder
-		db.Save(oldResultAntiOrder)
+		err = append(err, db.Save(oldResultAntiOrder).GetErrors()...)
 	}
-	GetAntiOrder(db, newAntiOrder, resultAntiOrder)
+	err = append(err, GetAntiOrder(db, newAntiOrder, resultAntiOrder)...)
+	return err
 }
 
-func DeleteAntiOrder(db *gorm.DB, oldAntiOrder AntiOrder) {
-	db.Delete(&oldAntiOrder)
+func DeleteAntiOrder(db *gorm.DB, oldAntiOrder AntiOrder) []error {
+	return db.Delete(&oldAntiOrder).GetErrors()
 }
 
-func CreateOrder(db *gorm.DB, newOrder Order) {
-	db.Create(&newOrder)
+func CreateOrder(db *gorm.DB, newOrder Order) []error {
+	return db.Create(&newOrder).GetErrors()
 }
 
-func GetOrder(db *gorm.DB, queryOrder Order, resultOrder *Order) {
-	db.Where(&queryOrder).First(resultOrder)
+func GetOrder(db *gorm.DB, queryOrder Order, resultOrder *Order) []error {
+	return db.Where(&queryOrder).First(resultOrder).GetErrors()
 }
 
-func UpdateOrder(db *gorm.DB, oldOrder Order, newOrder Order, resultOrder *Order) {
+func GetAllOrder(db *gorm.DB, queryOrder Order, resultOrder []Order) []error {
+	return db.Where(&queryOrder).Find(resultOrder).GetErrors()
+}
+
+func UpdateOrder(db *gorm.DB, oldOrder Order, newOrder Order, resultOrder *Order) []error {
 	var oldResultOrder Order
-	db.Where(&oldOrder).First(&oldResultOrder)
+	err := db.Where(&oldOrder).First(&oldResultOrder).GetErrors()
 	if oldResultOrder.OrderID == newOrder.OrderID {
 		oldResultOrder = newOrder
-		db.Save(oldResultOrder)
+		err = append(err, db.Save(oldResultOrder).GetErrors()...)
 	}
-	GetOrder(db, newOrder, resultOrder)
+	err = append(err, GetOrder(db, newOrder, resultOrder)...)
+	return err
 }
 
-func DeleteOrder(db *gorm.DB, oldOrder Order) {
-	db.Delete(&oldOrder)
+func DeleteOrder(db *gorm.DB, oldOrder Order) []error {
+	return db.Delete(&oldOrder).GetErrors()
+}
+
+func CreatePerson(db *gorm.DB, newPerson Person) []error {
+	return db.Create(&newPerson).GetErrors()
+}
+
+func GetPerson(db *gorm.DB, queryPerson Person, resultPerson *Person) []error {
+	return db.Where(&queryPerson).First(resultPerson).GetErrors()
+}
+
+func GetAllPerson(db *gorm.DB, queryPerson Person, resultPerson []Person) []error {
+	return db.Where(&queryPerson).Find(resultPerson).GetErrors()
+}
+
+func UpdatePerson(db *gorm.DB, oldPerson Person, newPerson Person, resultPerson *Person) []error {
+	var oldResultPerson Person
+	err := db.Where(&oldPerson).First(&oldResultPerson).GetErrors()
+	if oldResultPerson.ID == newPerson.ID {
+		oldResultPerson = newPerson
+		err = append(err, db.Save(oldResultPerson).GetErrors()...)
+	}
+	err = append(err, GetPerson(db, newPerson, resultPerson)...)
+	return err
+}
+
+func DeletePerson(db *gorm.DB, oldPerson Person) []error {
+	return db.Delete(&oldPerson).GetErrors()
 }

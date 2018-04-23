@@ -1,7 +1,7 @@
 {
     "project_name": "first-graphql-server",
     "database_type": "mysql",
-    "connection_string": "ahmed:password@tcp(localhost:3306)/delivery",
+    "connection_string": "root@tcp(172.19.0.2:3306)/delivery",
     "table_names": [
         "Persons",
         "AntiOrders",

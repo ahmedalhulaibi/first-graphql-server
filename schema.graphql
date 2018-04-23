@@ -1,19 +1,19 @@
-type Persons {
-	 FirstName: string
-	 Address: string
-	 City: string
-	 AntiOrder: AntiOrder
-	 Orders: [Order]
-	 ID: int32!
-	 LastName: string
+type AntiOrder { 
+	AntiOrderID: Int!
+	AntiOrderNumber: Int!
+	PersonID: Int
 }
-type AntiOrders {
-	 AntiOrderID: int32!
-	 AntiOrderNumber: int32!
-	 PersonID: int32
+type Order { 
+	OrderID: Int!
+	OrderNumber: Int!
+	PersonID: Int
 }
-type Orders {
-	 OrderID: int32!
-	 OrderNumber: int32!
-	 PersonID: int32
+type Person { 
+	Address: String
+	AntiOrder: AntiOrder
+	City: String
+	FirstName: String
+	ID: Int!
+	LastName: String
+	Orders: [Orders]
 }

@@ -9,7 +9,6 @@ var antiOrderType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "AntiOrder",
 		Fields: graphql.Fields{
-
 			"AntiOrderID": &graphql.Field{
 				Type: graphql.NewNonNull(graphql.Int),
 			},
@@ -27,7 +26,6 @@ var orderType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Order",
 		Fields: graphql.Fields{
-
 			"OrderID": &graphql.Field{
 				Type: graphql.NewNonNull(graphql.Int),
 			},
@@ -45,9 +43,17 @@ var personType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Person",
 		Fields: graphql.Fields{
-
-			"Orders": &graphql.Field{
-				Type: graphql.NewList(orderType),
+			"Address": &graphql.Field{
+				Type: graphql.String,
+			},
+			"AntiOrder": &graphql.Field{
+				Type: antiOrderType,
+			},
+			"City": &graphql.Field{
+				Type: graphql.String,
+			},
+			"FirstName": &graphql.Field{
+				Type: graphql.String,
 			},
 			"ID": &graphql.Field{
 				Type: graphql.NewNonNull(graphql.Int),
@@ -55,17 +61,8 @@ var personType = graphql.NewObject(
 			"LastName": &graphql.Field{
 				Type: graphql.String,
 			},
-			"FirstName": &graphql.Field{
-				Type: graphql.String,
-			},
-			"Address": &graphql.Field{
-				Type: graphql.String,
-			},
-			"City": &graphql.Field{
-				Type: graphql.String,
-			},
-			"AntiOrder": &graphql.Field{
-				Type: antiOrderType,
+			"Orders": &graphql.Field{
+				Type: graphql.NewList(orderType),
 			},
 		},
 	},
